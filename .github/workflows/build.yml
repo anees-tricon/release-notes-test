@@ -1,0 +1,20 @@
+name: Deploy
+on:
+  push:
+    tags:
+      - '*'
+  
+jobs:
+  fetch-notes:
+    name: fetch notes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Release note from Tag
+        run: |
+          release_info = $(curl --request GET \
+          --url https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref_name}} \
+          --header 'authorization: Bearer ${{ github.token }}' \
+          --header 'Accept: application/vnd.github+json' \
+          --header 'X-GitHub-Api-Version: 2022-11-28')
+          release_notes=$(echo "$release_info" | jq -r .body)
+          echo "Release Notes: $release_notes"
