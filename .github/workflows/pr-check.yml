@@ -1,0 +1,18 @@
+name: Check PR for Labels
+
+on:
+  pull_request:
+    branches:
+      - main
+      
+jobs:
+  verify_labels:
+    name: Verify_PR_Labels
+    runs-on: ubuntu-latest
+    steps:
+      - name: verify PR Label Action
+        uses: jesusvasquez333/verify-pr-label-action@v1.4.0
+        with:
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
+          valid-labels: 'bug, feature'
+          invalid-labels: 'draft'
