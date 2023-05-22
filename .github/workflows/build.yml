@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Fetch Release note from Tag
         run: |
-          release_info = $(curl --request GET \
+          release_info=$(curl --request GET \
           --url https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref_name}} \
           --header 'authorization: Bearer ${{ github.token }}' \
           --header 'Accept: application/vnd.github+json' \
